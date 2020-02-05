@@ -1,4 +1,5 @@
-// Createt by David Szegedi - 2020
+// Created by David Szegedi - 2020
+// Feel free to use it for any project.
 
 const express = require('express');
 const path = require('path');
@@ -12,14 +13,11 @@ let servoAngle = 0;
 
 app.use(cors());
 
-app.get('/restText', (req, res) => {
-    res.send(Math.random(1000).toFixed(2).toString());
-});
-
 app.get('/monitor', (req, res) => {
     res.send(JSON.stringify(getData()));
 });
 
+// not used yet
 app.get('/rest-array', (req, res) => {
             let data = [];
         for(let i=0; i<10; i++){
@@ -50,19 +48,26 @@ function getData(){
 //     res.send(JSON.stringify({ledState: ledState}));
 // });
 
+// // todo delete above
+// app.post('/led/:ledState', (req, res) => {
+//     ledState = Boolean(JSON.parse(req.params.ledState));
+//     res.send(JSON.stringify({ledState: ledState, servoAngle: servoAngle}));
+// });
+
 // todo delete above
-app.post('/led/:ledState', (req, res) => {
-    ledState = Boolean(JSON.parse(req.params.ledState));
+app.post('/led', (req, res) => {
+    ledState = Boolean(JSON.parse(req.query.state));
     res.send(JSON.stringify({ledState: ledState, servoAngle: servoAngle}));
 });
 
-// SERVO
+
 app.get('/controller', function(req, res) {
     res.send(JSON.stringify({ledState: ledState, servoAngle: servoAngle}));
 });
 
-app.post('/servo/:angle', function(req, res) {
-    servoAngle = req.params.angle;
+// SERVO
+app.post('/servo', function(req, res) {
+    servoAngle = req.query.angle;
     res.send(JSON.stringify({ledState: ledState, servoAngle: servoAngle}));
 });
 
