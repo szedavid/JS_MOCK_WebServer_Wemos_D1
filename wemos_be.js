@@ -32,7 +32,7 @@ function getData(){
     let myObj = {
         // time: now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
         time: (now.getHours()*3600 + now.getMinutes()*60 + now.getSeconds())*1000 + now.getMilliseconds(),
-        value: Math.random(1000)
+        value: Math.random()*4
     };
     return myObj;
 }
@@ -55,18 +55,18 @@ function getData(){
 // });
 
 // todo delete above
-app.post('/led', (req, res) => {
+app.post('/v1/led', (req, res) => {
     ledState = Boolean(JSON.parse(req.query.state));
     res.send(JSON.stringify({ledState: ledState, servoAngle: servoAngle}));
 });
 
 
-app.get('/controller', function(req, res) {
+app.get('/v1/controller', function(req, res) {
     res.send(JSON.stringify({ledState: ledState, servoAngle: servoAngle}));
 });
 
 // SERVO
-app.post('/servo', function(req, res) {
+app.post('/v1/servo', function(req, res) {
     servoAngle = req.query.angle;
     res.send(JSON.stringify({ledState: ledState, servoAngle: servoAngle}));
 });
