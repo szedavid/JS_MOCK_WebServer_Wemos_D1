@@ -13,10 +13,6 @@ let servoAngle = 0;
 
 app.use(cors());
 
-app.get('/monitor', (req, res) => {
-    res.send(JSON.stringify(getData()));
-});
-
 // not used yet
 app.get('/rest-array', (req, res) => {
             let data = [];
@@ -37,35 +33,22 @@ function getData(){
     return myObj;
 }
 
-// LED
-// app.get('/on', (req, res) => {
-//     ledState = true;
-//     res.send(JSON.stringify({ledState: ledState}));
-// });
 
-// app.get('/off', (req, res) => {
-//     ledState = false;
-//     res.send(JSON.stringify({ledState: ledState}));
-// });
-
-// // todo delete above
-// app.post('/led/:ledState', (req, res) => {
-//     ledState = Boolean(JSON.parse(req.params.ledState));
-//     res.send(JSON.stringify({ledState: ledState, servoAngle: servoAngle}));
-// });
-
-// todo delete above
-app.post('/v1/led', (req, res) => {
-    ledState = Boolean(JSON.parse(req.query.state));
-    res.send(JSON.stringify({ledState: ledState, servoAngle: servoAngle}));
+// - QUERY
+app.get('/V1/monitor', (req, res) => {
+    res.send(JSON.stringify(getData()));
 });
-
 
 app.get('/v1/controller', function(req, res) {
     res.send(JSON.stringify({ledState: ledState, servoAngle: servoAngle}));
 });
 
-// SERVO
+// - SET
+app.post('/v1/led', (req, res) => {
+    ledState = Boolean(JSON.parse(req.query.state));
+    res.send(JSON.stringify({ledState: ledState, servoAngle: servoAngle}));
+});
+
 app.post('/v1/servo', function(req, res) {
     servoAngle = req.query.angle;
     res.send(JSON.stringify({ledState: ledState, servoAngle: servoAngle}));
