@@ -15,6 +15,6 @@
   "homepage": "https://github.com/szedavid/JS_MOCK_WebServer_Wemos_D1#readme",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.17.1"
+    "express": "^4.17.3"
   }
 }
